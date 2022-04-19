@@ -8,11 +8,11 @@ const findByUsername = (username) => User.findOne({username: username});
 
 const findAll = () =>  User.find();
 
-const findById = (user_id) => User.findOne({ where: { id: user_id } });
+const findById = (userId) => User.findOne({ where: { id: userId } });
 
-const deleteById = (userId) => User.findByIdAndDelete(user_id);
+const deleteById = (userId) => User.findByIdAndDelete(userId);
 
-const updateById = (user_id) => User.findByIdAndUpdate(user_id);
+const updateById = (userId) => User.findByIdAndUpdate(userId);
 
 // const upad
 

@@ -1,0 +1,252 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "CRUD api",
+        "description": "User API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for users in system"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Users"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Register new user in system",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "User who need to sign in",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New user is created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description": "fail",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "name": "userLogin",
+                        "in": "body",
+                        "description": "User who need to login",
+                        "schema": {
+                            "$ref": "#/definitions/UserLogin"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/UserLogin"
+                        }
+                    },
+                    "400": {
+                        "description": "login fail",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/:id": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "get user by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of user that we want to find",
+                        "type": "integer"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "found",
+                        "schema": {
+                            "$ref": "#/definitions/UserLogin"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete/:id": {
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "delete user by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the user that we will delete"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/update/:id": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "update user by id",
+                "responses": {
+                    "200": {
+                        "description": "update success",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "definitions": {
+            "User": {
+                "required": [
+                    "name",
+                    "_id",
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "_id": {
+                        "type": "integer",
+                        "uniqueItems": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "min": 6
+                    },
+                    "username": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 255
+                    },
+                    "password": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 200
+                    },
+                    "confirmPassword": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 200
+                    }
+                }
+            },
+            "Users": {
+                "type": "array",
+                "$ref": "#/definitions/User"
+            },
+            "UserLogin": {
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "token": "string",
+                    "username": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 255
+                    },
+                    "password": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 200
+                    }
+                }
+            },
+            "Error": {
+                "msg": "Bad request"
+            }
+        }
+    }
+}
