@@ -38,3 +38,5 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.listen(3000, () => {
   console.log("running");
 });
+
+module.exports = app;
