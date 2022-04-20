@@ -130,12 +130,16 @@
                         "name": "changePassword",
                         "in": "body",
                         "description": "change user's password",
-                        "schema": {"$ref": "#/definitions/UserChangePw"}
+                        "schema": {
+                            "$ref": "#/definitions/UserChangePw"
+                        }
                     }
                 ],
-                "produces":["application/json"],
-                "responses":{
-                    "200":{
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
                         "description": "complete",
                         "schema": {
                             "$ref": "#/definitions/UserChangePw"
@@ -281,7 +285,7 @@
                     }
                 }
             },
-            "UserChangePw":{
+            "UserChangePw": {
                 "required": "id",
                 "properties": {
                     "id": "string",

@@ -6,7 +6,9 @@
   "scripts": {
     "lint": "eslint",
     "start": "nodemon index.js",
-    "test": "mocha --recursive --exit ./server/api/test/test.js" 
+    "test": "mocha --recursive --exit ./server/api/test/test.js",
+    "coverage": "nyc npm run test",
+    "postinstall": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +36,7 @@
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
     "request": "^2.88.2",
     "sequelize": "^6.19.0",
     "supertest": "^6.2.2",
@@ -43,6 +46,14 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^8.13.0"
+    "eslint": "^8.13.0",
+    "lint-staged": "^12.3.8"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run lint",
+      "npm run format",
+      "git add ."
+    ]
   }
 }
