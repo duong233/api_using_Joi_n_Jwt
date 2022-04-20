@@ -12,7 +12,10 @@ const findById = (userId) => User.findOne({ where: { id: userId } });
 
 const deleteById = (userId) => User.findByIdAndDelete(userId);
 
-const updateById = (userId) => User.findByIdAndUpdate(userId);
+const updateById = (userId, name, username, password, confirmPassword) =>{
+  User.updateOne({userId, name, username, password, confirmPassword},{where: {id: userId}});
+};
+ 
 
 // const upad
 

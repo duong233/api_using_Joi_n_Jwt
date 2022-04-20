@@ -5,7 +5,10 @@ const { StatusCodes } = require("http-status-codes");
 
 const userService = require("../user/user.service");
 const { changePwSchema } = require("./auth.validation");
+const { restart } = require("nodemon");
+const { param } = require("./auth.route");
 
+//POST /login
 const login = async (req, res, next) => {
   const { username, password } = req.body ;
 
@@ -42,6 +45,7 @@ const login = async (req, res, next) => {
   });
 };
 
+//POST /changePassword
 const changePassword = async (req, res, next) => {
   const { id, newPassword, confirmPassword } = req.body;
   if (!id) {
@@ -66,7 +70,7 @@ const changePassword = async (req, res, next) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(newPassword, salt);
-    await userService.updateById(id, hash);
+    await userService.updateById(id,hash);
     return res.status(StatusCodes.OK).json({
       message: "Password has been changed",
     });

@@ -119,6 +119,37 @@
                 }
             }
         },
+        "/changePassword": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "change user's password",
+                "parameters": [
+                    {
+                        "name": "changePassword",
+                        "in": "body",
+                        "description": "change user's password",
+                        "schema": {"$ref": "#/definitions/UserChangePw"}
+                    }
+                ],
+                "produces":["application/json"],
+                "responses":{
+                    "200":{
+                        "description": "complete",
+                        "schema": {
+                            "$ref": "#/definitions/UserChangePw"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid password",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/user/:id": {
             "get": {
                 "tags": [
@@ -131,7 +162,7 @@
                         "in": "path",
                         "required": true,
                         "description": "ID of user that we want to find",
-                        "type": "integer"
+                        "type": "string"
                     }
                 ],
                 "produces": [
@@ -142,6 +173,12 @@
                         "description": "found",
                         "schema": {
                             "$ref": "#/definitions/UserLogin"
+                        }
+                    },
+                    "400": {
+                        "description": "can not found user",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
                         }
                     }
                 }
@@ -238,6 +275,22 @@
                         "max": 255
                     },
                     "password": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 200
+                    }
+                }
+            },
+            "UserChangePw":{
+                "required": "id",
+                "properties": {
+                    "id": "string",
+                    "newPassword": {
+                        "type": "string",
+                        "min": 6,
+                        "max": 200
+                    },
+                    "confirmPassword": {
                         "type": "string",
                         "min": 6,
                         "max": 200

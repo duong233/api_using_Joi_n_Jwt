@@ -37,7 +37,7 @@ const create = async (req, res, next) => {
 
   //send email
     const options = {
-      from: `${process.env.NODE_USER}`,
+      from: process.env.NODE_USER,
       to: username,
       subject: 'Test send email to an account',
       html: `<p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>`
@@ -56,9 +56,6 @@ const create = async (req, res, next) => {
     })
     .catch((err) => {
       next(err);
-      // res.status(StatusCodes.BAD_REQUEST).json({
-      //   message: "unable to save data",
-      // });
     });
 };
 
@@ -117,7 +114,7 @@ const updateUser = async (req, res, next) => {
       return res.status(StatusCodes.BAD_REQUEST).json(isValid.error.message);
     }
     try{
-      await updateById(id);
+      await updateById(id, req.body.name, req.body.username);
       return res.status(StatusCodes.OK).json({
         message:"update success"
       })
