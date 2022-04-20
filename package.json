@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint --ext .js",
     "start": "nodemon index.js",
-    "test": "mocha --recursive --exit ./server/api/test/test.js",
+    "test": "nyc --reporter=text mocha --exit ./server/api/test/test.js",
     "coverage": "nyc npm run test",
     "postinstall": "husky install"
   },
@@ -36,7 +36,6 @@
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.3",
     "nodemon": "^2.0.15",
-    "nyc": "^15.1.0",
     "request": "^2.88.2",
     "sequelize": "^6.19.0",
     "supertest": "^6.2.2",
@@ -47,12 +46,14 @@
   },
   "devDependencies": {
     "eslint": "^8.13.0",
-    "lint-staged": "^12.3.8"
+    "lint-staged": "^12.3.8",
+    "nyc": "^15.1.0"
   },
   "lint-staged": {
-    "*.ts": [
+    "*.{js,json}": [
       "npm run lint",
       "npm run format",
+      "prettier --write",
       "git add ."
     ]
   }
