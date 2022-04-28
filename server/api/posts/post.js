@@ -1,4 +1,4 @@
-const verifyToken = require('../auth/auth.middleware')
+const {verifyToken} = require('../auth/auth.middleware')
 const router = require('express').Router();
 const { StatusCodes } = require('http-status-codes');
 

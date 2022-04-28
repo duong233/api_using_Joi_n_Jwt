@@ -15,15 +15,6 @@ const transporter = require('../../helpers/email');
 //POST /register
 const create = async (req, res, next) => {
   const {name, username, password, confirmPassword} = req.body;
-
-  const isValid = await userSchema.validate({
-    name,
-    username,
-    password,
-    confirmPassword
-  });
-  if (isValid.error)
-    return res.status(StatusCodes.BAD_REQUEST).json(isValid.error.message);
   
   //hash password
   const salt = await bcrypt.genSalt(10);

@@ -4,7 +4,6 @@ Project is about build API and how to write unit test, API docs
 ## Installation
 Install Nodejs runtime environment: v16.6.2 and npm: v7.20.3.
 Check 'package.json' to install the following neccessary package in dependencies
-
 ```bash
 nodejs : https://nodejs.org/download/release/v16.6.2/
 ```

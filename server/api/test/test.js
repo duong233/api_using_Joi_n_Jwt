@@ -5,19 +5,44 @@ const db = require("../../../config/db");
 let should = chai.should();
 
 const example = require("./data");
+const { StatusCodes } = require("http-status-codes");
 chai.use(chaiHttp);
 
 let token;
 
 describe("User", () => {
+  describe("register success", () => {
+    it("It should be saved into database", (done) => {
+      chai
+        .request(app)
+        .post("/register")
+        .send(example.userSchema)
+        .end((err, res) => {
+          res.should.have.status(StatusCodes.OK);
+          done();
+        });
+    });
+  });
+  describe("register invalid", () => {
+    it("invalid register", (done) => {
+      chai
+        .request(app)
+        .post("/register")
+        .send(example.userPassInvalid)
+        .end((err, res) => {
+          res.should.have.status(StatusCodes.BAD_REQUEST);
+          done();
+        });
+    });
+  });
   describe("Login success /login", () => {
     it("It should return a token", (done) => {
       chai
         .request(app)
-        .post('/login') 
+        .post("/login")
         .send(example.user)
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(StatusCodes.OK);
           token = res.text;
           done();
         });
@@ -30,7 +55,7 @@ describe("User", () => {
         .post("/login")
         .send(example.invalidUser)
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(StatusCodes.BAD_REQUEST);
           done();
         });
     });
@@ -41,7 +66,7 @@ describe("User", () => {
         .request(app)
         .get("/user")
         .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(StatusCodes.OK);
           res.body.should.be.a("array");
           done();
         });
@@ -53,7 +78,7 @@ describe("User", () => {
         .request(app)
         .get("/user")
         .end((err, res) => {
-          res.should.have.status(400);
+          res.should.have.status(StatusCodes.BAD_REQUEST);
           done();
         });
     });

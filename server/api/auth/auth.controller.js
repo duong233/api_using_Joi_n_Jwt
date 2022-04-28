@@ -5,8 +5,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const userService = require("../user/user.service");
 const { changePwSchema } = require("./auth.validation");
-const { restart } = require("nodemon");
-const { param } = require("./auth.route");
+
 
 //POST /login
 const login = async (req, res, next) => {
@@ -19,7 +18,6 @@ const login = async (req, res, next) => {
     err.statusCode = StatusCodes.BAD_REQUEST;
     return next(err);
   }
-  console.log(user);
 
   //check password
   const isPassword = await bcrypt.compare(password, user.password);
